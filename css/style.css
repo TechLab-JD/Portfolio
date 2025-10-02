@@ -95,6 +95,13 @@ html[data-theme="dark"] .bg-light{
   background-color: var(--muted-bg) !important;
   color: var(--text) !important;
 }
+
+/* Use a custom surface class so we don't fight Bootstrap's .bg-light implementation */
+.bg-surface{
+  background-color: var(--surface) !important;
+  color: var(--text) !important;
+}
+
 html[data-theme="dark"] .text-dark{
   color: var(--text) !important;
 }
