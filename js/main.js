@@ -48,19 +48,20 @@ function initThemeToggle(){
     const container = document.querySelector('.theme-toggle');
     if(!container) return;
 
-    // Build button: [sun icon] [switch] [moon icon]
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.title = 'Toggle theme';
-    btn.setAttribute('aria-pressed','false');
-    btn.className = 'theme-btn';
-
-    const sun = document.createElement('span'); sun.className='icon'; sun.innerHTML='☀️';
-    const sw = document.createElement('span'); sw.className='switch';
-    const moon = document.createElement('span'); moon.className='icon'; moon.innerHTML='🌙';
-
-    btn.appendChild(sun); btn.appendChild(sw); btn.appendChild(moon);
-    container.appendChild(btn);
+    // Prefer an existing button (progressive enhancement) or create one
+    let btn = container.querySelector('button.theme-btn');
+    if(!btn){
+      btn = document.createElement('button');
+      btn.type = 'button';
+      btn.title = 'Toggle theme';
+      btn.setAttribute('aria-pressed','false');
+      btn.className = 'theme-btn';
+      const sun = document.createElement('span'); sun.className='icon'; sun.innerHTML='☀️';
+      const sw = document.createElement('span'); sw.className='switch';
+      const moon = document.createElement('span'); moon.className='icon'; moon.innerHTML='🌙';
+      btn.appendChild(sun); btn.appendChild(sw); btn.appendChild(moon);
+      container.appendChild(btn);
+    }
 
     // current theme
     const saved = localStorage.getItem(THEME_KEY) || 'system';
