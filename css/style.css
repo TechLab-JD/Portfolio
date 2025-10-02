@@ -1,11 +1,25 @@
+
+/* Theme tokens: light by default, dark overrides when [data-theme="dark"] on <html> */
 :root{
   --primary: #0d6efd;
   --muted: #6c757d;
   --surface: #ffffff;
+  --text: #0b1220;
+  --card-bg: #ffffff;
+  --muted-bg: #f8f9fa;
   font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
 
-body { background: var(--surface); color: #0b1220; }
+html[data-theme="dark"]{
+  --primary: #4ea8ff;
+  --muted: #9aa4b2;
+  --surface: #071022;
+  --text: #e6eef8;
+  --card-bg: #0b1220;
+  --muted-bg: #071427;
+}
+
+body { background: var(--surface); color: var(--text); }
 
 h1, h2, h3 { font-family: "Poppins", "Inter", sans-serif; }
 
@@ -18,3 +32,55 @@ h1, h2, h3 { font-family: "Poppins", "Inter", sans-serif; }
 /* make markdown content tidy */
 #readme-content pre { background:#0f1724; color:#eef2ff; padding:12px; border-radius:8px; overflow:auto; }
 #readme-content code { background:#f1f5f9; padding:2px 6px; border-radius:6px; font-family:monospace; }
+
+/* Theme toggle styles (top-right) */
+.theme-toggle{
+  position: absolute;
+  right: 12px;
+  top: 10px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  z-index:1050; /* above navbar */
+}
+
+.theme-toggle button{
+  background: transparent;
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 18px;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 8px;
+  border-radius:999px;
+}
+
+.theme-toggle button .switch{
+  width:40px;
+  height:20px;
+  background:var(--muted-bg);
+  border-radius:999px;
+  position:relative;
+  flex:0 0 auto;
+}
+
+.theme-toggle button .switch::after{
+  content:'';
+  position:absolute;
+  left:3px;
+  top:3px;
+  width:14px;
+  height:14px;
+  background:var(--card-bg);
+  border-radius:50%;
+  transition: transform .18s ease;
+}
+
+html[data-theme="dark"] .theme-toggle button .switch{ background: rgba(255,255,255,0.06); }
+html[data-theme="dark"] .theme-toggle button .switch::after{ transform: translateX(20px); }
+
+/* small icons inside the button */
+.theme-toggle .icon{ font-size:16px; display:inline-block; width:18px; text-align:center; }
+

@@ -37,7 +37,63 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   loadReadme();
+  initThemeToggle();
 });
+
+// Theme toggle: respects system preference and persists choice in localStorage
+const THEME_KEY = 'site_theme'; // 'light' | 'dark' | 'system'
+
+function initThemeToggle(){
+  try{
+    const container = document.querySelector('.theme-toggle');
+    if(!container) return;
+
+    // Build button: [sun icon] [switch] [moon icon]
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.title = 'Toggle theme';
+    btn.setAttribute('aria-pressed','false');
+    btn.className = 'theme-btn';
+
+    const sun = document.createElement('span'); sun.className='icon'; sun.innerHTML='☀️';
+    const sw = document.createElement('span'); sw.className='switch';
+    const moon = document.createElement('span'); moon.className='icon'; moon.innerHTML='🌙';
+
+    btn.appendChild(sun); btn.appendChild(sw); btn.appendChild(moon);
+    container.appendChild(btn);
+
+    // current theme
+    const saved = localStorage.getItem(THEME_KEY) || 'system';
+    applyTheme(saved);
+
+    btn.addEventListener('click', ()=>{
+      // cycle: system -> dark -> light -> system
+      const cur = localStorage.getItem(THEME_KEY) || 'system';
+      const next = cur === 'system' ? 'dark' : cur === 'dark' ? 'light' : 'system';
+      localStorage.setItem(THEME_KEY, next);
+      applyTheme(next);
+    });
+  }catch(e){ console.warn('theme init failed', e); }
+}
+
+function applyTheme(mode){
+  const html = document.documentElement;
+  if(mode === 'system'){
+    // follow media query
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    html.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+    html.removeAttribute('data-user-theme');
+  } else if(mode === 'dark'){
+    html.setAttribute('data-theme','dark');
+    html.setAttribute('data-user-theme','dark');
+  } else {
+    html.setAttribute('data-theme','light');
+    html.setAttribute('data-user-theme','light');
+  }
+  // update aria state on button if present
+  const btn = document.querySelector('.theme-toggle button');
+  if(btn) btn.setAttribute('aria-pressed', html.getAttribute('data-theme') === 'dark');
+}
 
 // Load README with cache
 async function loadReadme(){
