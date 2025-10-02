@@ -40,8 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initThemeToggle();
 });
 
-// Theme toggle: respects system preference and persists choice in localStorage
-const THEME_KEY = 'site_theme'; // 'light' | 'dark' | 'system'
+// Theme toggle: two-state (light/dark). Persists 'light' or 'dark' in localStorage.
+const THEME_KEY = 'site_theme'; // 'light' | 'dark'
 
 function initThemeToggle(){
   try{
@@ -63,14 +63,19 @@ function initThemeToggle(){
       container.appendChild(btn);
     }
 
-    // current theme
-    const saved = localStorage.getItem(THEME_KEY) || 'system';
-    applyTheme(saved);
+    // current theme: if saved, use it; otherwise follow system preference
+    const saved = localStorage.getItem(THEME_KEY);
+    if(saved === 'light' || saved === 'dark'){
+      applyTheme(saved);
+    } else {
+      // follow system and don't persist until user toggles
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      applyTheme(prefersDark ? 'dark' : 'light');
+    }
 
     btn.addEventListener('click', ()=>{
-      // cycle: system -> dark -> light -> system
-      const cur = localStorage.getItem(THEME_KEY) || 'system';
-      const next = cur === 'system' ? 'dark' : cur === 'dark' ? 'light' : 'system';
+      const cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      const next = cur === 'dark' ? 'light' : 'dark';
       localStorage.setItem(THEME_KEY, next);
       applyTheme(next);
     });
