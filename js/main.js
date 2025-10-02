@@ -98,7 +98,11 @@ function applyTheme(mode){
   }
   // update aria state on button if present
   const btn = document.querySelector('.theme-toggle button');
-  if(btn) btn.setAttribute('aria-pressed', html.getAttribute('data-theme') === 'dark');
+  if(btn){
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    btn.setAttribute('aria-pressed', isDark);
+    btn.setAttribute('aria-checked', isDark);
+  }
 }
 
 // Load README with cache

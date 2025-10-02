@@ -91,3 +91,28 @@ html[data-theme="dark"] .theme-toggle button .switch{ background: rgba(255,255,2
 /* focus styles */
 .theme-toggle button:focus{ outline: 2px solid rgba(13,110,253,0.18); outline-offset:3px; border-radius:10px; }
 
+/* Dark-mode overrides for Bootstrap utility classes and components */
+html[data-theme="dark"] .bg-light{
+  background-color: var(--muted-bg) !important;
+  color: var(--text) !important;
+}
+html[data-theme="dark"] .text-dark{
+  color: var(--text) !important;
+}
+html[data-theme="dark"] .btn-outline-dark{
+  color: var(--text) !important;
+  border-color: rgba(255,255,255,0.12) !important;
+}
+html[data-theme="dark"] .card{
+  background: var(--card-bg) !important;
+  color: var(--text) !important;
+  border: 1px solid rgba(255,255,255,0.04);
+}
+html[data-theme="dark"] .card .card-body{ background: transparent; }
+html[data-theme="dark"] a{ color: var(--primary); }
+
+/* make pre/code darker-friendly */
+html[data-theme="dark"] #readme-content pre{ background:#0b1220; color:var(--text); }
+html[data-theme="dark"] #readme-content code{ background: rgba(255,255,255,0.03); color: var(--text); }
+
+
