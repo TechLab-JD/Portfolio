@@ -1,0 +1,20 @@
+# Node modules (if any node tooling is added)
+node_modules/
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# VSCode
+.vscode/
+
+# Python caches
+__pycache__/
+*.py[cod]
+
+# Build output
+dist/
+build/
+
+# Logs
+*.log
