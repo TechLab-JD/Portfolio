@@ -40,14 +40,14 @@ Here are a few highlighted repositories:
 - [**Personal Portfolio Website**](https://github.com/TechLab-JD/Personal-Portfolio-Website)  
   My personal portfolio built with GitHub Pages — a central hub to showcase skills, certifications, and projects.  
 
+- [**Inventory Tracker**](https://github.com/TechLab-JD/Inventory-Tracker)  
+  A lightweight system to log, update, and monitor items in stock — practice for json and database-backed apps.
+
 - [**Weather App**]()  
   A simple weather forecast app that consumes an external API and displays clean, real-time results.  
 
 - [**Data Dashboard**]()  
   An interactive dashboard for visualizing datasets with charts, filters, and insights.  
-
-- [**Inventory Tracker**]()  
-  A lightweight system to log, update, and monitor items in stock — practice for database-backed apps.
   
 *(More projects coming soon…)*  
 
